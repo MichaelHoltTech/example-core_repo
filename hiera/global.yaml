@@ -1,0 +1,187 @@
+---
+classes:
+  - role::default
+  - managedmac::users
+  - managedmac
+  - managedmac::sshd
+  - managedmac::loginwindow
+  - managedmac::security
+  - managedmac::softwareupdate
+  - managedmac::remotemanagement
+  - managedmac::energysaver
+  - managedmac::authorization
+  - managedmac::activedirectory
+  - mac_admin::icloud_assistant
+  - mac_admin::login_window_hostname
+  - mac_admin::disable_game_center
+  #- profile::hpdrivers
+
+profile::puppet_run::server_name: puppet.reallifechurch.org
+
+
+managedmac::organization: 'Real Life Church'
+managedmac::ntp::enable: true
+managedmac::ntp::servers:
+  - time.euro.apple.com
+  - time1.google.com
+
+managedmac::users::accounts:
+  rlcadmin:
+    uid: 995
+    gid: 80
+    home: '/Users/rlcadmin'
+    comment: 'RLC Administrator'
+    shell: '/bin/bash'
+    salt: '1b740274ffee0f60a5039c25425eba83ab67d05a8b79cdda1f932688cbe871fd'
+    iterations: 32467
+    password: 'c25484f2df7de2bec8f6bada1afaac94fbcef2f3efa7726f42ca4e40a68f91917848c523dcf4bd1cf38f87ffcef83a0c9a5d4a3563d9dbdfd426e404f852a40d0f144b85e71e3cc2962d186d851da7d343849afb1c68d8ae1c534741460db30e6966f82464e34bb162a503043b8e35c5c4643008b010fcfe5901e1252c798b35'
+
+
+managedmac::sshd::enable: true
+managedmac::sshd::strict: true
+managedmac::sshd::users:
+  - rlcadmin
+managedmac::loginwindow::hide_admin_users: true
+managedmac::loginwindow::hide_local_users: false
+managedmac::loginwindow::show_network_users: false
+managedmac::loginwindow::loginwindow_text: "Logging in constitutes agreement to the Real Life Church Computer Use Policy"
+managedmac::loginwindow::retries_until_hint: 1000000
+managedmac::loginwindow::show_other_button: true
+managedmac::loginwindow::disable_autologin: true
+managedmac::loginwindow::disable_guest_account: false
+managedmac::loginwindow::enable_fast_user_switching: true
+
+managedmac::security::ask_for_password: true
+managedmac::security::ask_for_password_delay: 60
+managedmac::security::disable_autologin: true
+managedmac::security::dont_allow_password_reset_ui: false
+managedmac::security::gatekeeper_allow_identified_developers: true
+managedmac::security::dont_allow_lock_message_ui: true
+
+managedmac::softwareupdate::automatic_update_check: false
+managedmac::softwareupdate::auto_update_apps: true
+managedmac::softwareupdate::automatic_download: false
+managedmac::softwareupdate::critical_update_install: false
+
+managedmac::remotemanagement::enable: true
+managedmac::remotemanagement::users:
+  rlcadmin: -1073741569
+
+managedmac::energysaver::desktop:
+  ACPower:
+   'Automatic Restart On Power Loss': true
+   'Wake On LAN': true
+managedmac::energysaver::portable:
+  ACPower:
+   'Wake On LAN': true
+  BatteryPower:
+   'Wake On LAN': true
+
+managedmac::authorization::allow_energysaver: true
+managedmac::authorization::allow_datetime: true
+managedmac::authorization::allow_timemachine: true
+managedmac::authorization::allow_printers: true
+managedmac::authorization::allow_dvd_setregion_initial: true
+
+
+managedmac::mobileconfigs::payloads:
+  #Forces Mobile Account Creation
+  com.apple.mdm.prometheus.reallifechurch.org.cb89ebe0-1c8b-0133-cf3c-0c4de99bf58d.alacarte:
+    organization: Real Life Church
+    displayname: "Managed Mac: Create MA"
+    content:
+    - PayloadType: com.apple.MCX
+      cachedaccounts.WarnOnCreate.allowNever: false
+      com.apple.cachedaccounts.CreateAtLogin: true
+      com.apple.cachedaccounts.CreatePHDAtLogin: false
+      com.apple.cachedaccounts.WarnOnCreate: false
+      cachedaccounts.create.encrypt: false
+      cachedaccounts.create.encrypt.requireMasterPassword: false
+      cachedaccounts.create.location: startup
+      cachedaccounts.create.maxSize: ''
+      cachedaccounts.create.maxSize.fixedSize: '262144000'
+      cachedaccounts.create.maxSize.percentOfNetworkHome: 100
+      cachedaccounts.expiry.delete.disusedSeconds: 604800
+      cachedaccounts.expiry.cond.successfulSync: true
+  #Disable Office 2016 Auto-Update
+  org.reallifechurch.profile.office2016:
+    organization: Real Life Church
+    displayname: Microsoft Office 2016
+    description: ! "OOBE Office 2016 settings.\nIncluded custom settings:\ncom.microsoft.autoupdate2\ncom.microsoft.Excel\ncom.microsoft.Office365ServiceV2\ncom.microsoft.onenote.mac\ncom.microsoft.Outlook\ncom.microsoft.PowerPoint\ncom.microsoft.Word\n\t"
+    content:
+    - PayloadContent:
+        com.microsoft.autoupdate2:
+          Set-Once:
+          - mcx_preference_settings:
+              Applications:
+                /Applications/Microsoft Excel.app:
+                  Application ID: XCEL15
+                  LCID: 1033
+                /Applications/Microsoft OneNote.app:
+                  Application ID: ONMC15
+                  LCID: 1033
+                /Applications/Microsoft Outlook.app:
+                  Application ID: OPIM15
+                  LCID: 1033
+                /Applications/Microsoft PowerPoint.app:
+                  Application ID: PPT315
+                  LCID: 1033
+                /Applications/Microsoft Word.app:
+                  Application ID: MSWD15
+                  LCID: 1033
+                /Library/Application Support/Microsoft/MAU2.0/Microsoft AutoUpdate.app:
+                  Application ID: MSau02
+                  LCID: 1033
+                /Library/Application Support/Microsoft/MERP2.0/Microsoft Error Reporting.app:
+                  Application ID: Merp2
+                  LCID: 1033
+              HowToCheck: Manual
+              LastUpdate: 2000-12-31 16:00:00.000000000 -08:00
+              WhenToCheck: 2
+      PayloadType: com.apple.ManagedClient.preferences
+    - PayloadContent:
+        com.microsoft.Excel:
+          Set-Once:
+          - mcx_preference_settings:
+              kSubUIAppCompletedFirstRunSetup1507: true
+              SendAllTelemetryEnabled: false
+      PayloadType: com.apple.ManagedClient.preferences
+    - PayloadContent:
+        com.microsoft.Office365ServiceV2:
+          Set-Once:
+          - mcx_preference_settings:
+              SendAllTelemetryEnabled: false
+      PayloadType: com.apple.ManagedClient.preferences
+    - PayloadContent:
+        com.microsoft.onenote.mac:
+          Set-Once:
+          - mcx_preference_settings:
+              FirstRunExperienceCompletedO15: true
+              kSubUIAppCompletedFirstRunSetup1507: true
+              OUIWhatsNewLastShownLink: 623769
+              SendAllTelemetryEnabled: false
+      PayloadType: com.apple.ManagedClient.preferences
+    - PayloadContent:
+        com.microsoft.Outlook:
+          Set-Once:
+          - mcx_preference_settings:
+              FirstRunExperienceCompletedO15: true
+              kSubUIAppCompletedFirstRunSetup1507: true
+              OUIWhatsNewLastShownLink: 623900
+              SendAllTelemetryEnabled: false
+      PayloadType: com.apple.ManagedClient.preferences
+    - PayloadContent:
+        com.microsoft.PowerPoint:
+          Set-Once:
+          - mcx_preference_settings:
+              kSubUIAppCompletedFirstRunSetup1507: true
+              OUIWhatsNewLastShownLink: 620749
+              SendAllTelemetryEnabled: false
+      PayloadType: com.apple.ManagedClient.preferences
+    - PayloadContent:
+        com.microsoft.Word:
+          Set-Once:
+          - mcx_preference_settings:
+              kSubUIAppCompletedFirstRunSetup1507: true
+              SendAllTelemetryEnabled: false
+      PayloadType: com.apple.ManagedClient.preferences
