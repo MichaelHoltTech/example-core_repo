@@ -1,0 +1,10 @@
+---
+:backends:
+  - yaml
+:hierarchy:
+  - machine/%{clientcert}
+  - role/%{computer_role}
+  - common
+
+:yaml:
+  :datadir: /etc/puppet/environments/%{environment}/hiera
