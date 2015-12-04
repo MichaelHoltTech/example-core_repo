@@ -1,2 +1,4 @@
 ---
-puppet_run::server_name: 'puppet.rlcit.org'
+classes:
+  - puppet_run
+"puppet_run::server_name": puppet.rlcit.org
