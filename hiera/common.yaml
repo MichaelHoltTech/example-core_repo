@@ -1,0 +1,4 @@
+---
+classes:
+    - puppet_run
+puppet_run::server_name: 'puppet.rlcit.org'

@@ -1,3 +1,7 @@
 class roles::default {
-    include profiles::common
+    case $operatingsystem {
+      Darwin:{
+        include profiles::common
+      }
+    }
 }

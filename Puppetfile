@@ -23,7 +23,11 @@ mod 'managedmac',
 mod 'sal_client',
     :git => 'https://github.com/grahamgilbert/puppet-sal_client'
 
+mod 'puppet_run',
+    :git => 'https://github.com/grahamgilbert/puppet-puppet_run'
+
 #mod 'rcoleman/mac_profiles_handler', '0.3.0'
 mod 'puppetlabs/stdlib', '4.9.0'
 mod 'grahamgilbert/macdefaults', '0.0.1'
 mod 'mosen/cups', '1.4.1'
+mod 'puppetlabs/inifile', '1.4.2'
