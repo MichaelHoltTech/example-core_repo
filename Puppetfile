@@ -1,5 +1,4 @@
 forge 'http://forge.puppetlabs.com'
-mod 'puppetlabs/inifile', '1.4.2'
 mod 'mac_admin',
     :git => 'https://github.com/grahamgilbert/puppet-mac_admin'
 
