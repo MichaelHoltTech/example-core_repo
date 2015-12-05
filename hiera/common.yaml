@@ -1,4 +1,5 @@
 ---
 classes:
   - puppet_run
+  - roles::default
 "puppet_run::server_name": puppet.rlcit.org
