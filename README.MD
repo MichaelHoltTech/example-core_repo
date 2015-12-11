@@ -20,7 +20,7 @@ This will do the following on the computer:
 - Enable ARD Remote Management for testuser
 - Enable SSH for testuser
 - Apply a default dock
-- Install a printer
+- Install a printer (must have HP drivers installed)
 - Set a loginwindow message
 - Configure puppet and automatically run it using puppet_run module
 - Hide "Puppet" user
