@@ -1,5 +1,20 @@
 ---
 classes:
   - puppet_run
-  - roles::default
+  - managedmac::loginwindow
+  - managedmac::authorization
+  - profiles::users::hide_puppet_user
+  - profiles::allow_lpadmin
+
+# Variables
 puppet_run::server_name: puppet.rlcit.org
+managedmac::loginwindow::loginwindow_text: "This Mac belongs to SomeOrg, Inc.  Authorized Use Only!"
+managedmac::loginwindow::loginwindow_text: "Logging in constitutes agreement to the Real Life Church Computer Use Policy"
+managedmac::loginwindow::disable_autologin: true
+managedmac::loginwindow::disable_guest_account: true
+managedmac::loginwindow::enable_fast_user_switching: true
+managedmac::authorization::allow_energysaver: true
+managedmac::authorization::allow_datetime: true
+managedmac::authorization::allow_timemachine: true
+managedmac::authorization::allow_printers: true
+managedmac::authorization::allow_dvd_setregion_initial: true

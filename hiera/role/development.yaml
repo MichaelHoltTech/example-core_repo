@@ -1,0 +1,18 @@
+---
+classes:
+  - roles::staff
+  - roles::location::valencia_campus
+  - profiles::users::testuser
+  - managedmac::remotemanagement
+  - managedmac::sshd
+
+# Variables
+
+managedmac::remotemanagement::enable: true
+managedmac::remotemanagement::users:
+  testuser: -2147483646
+
+managedmac::sshd::enable: true
+managedmac::sshd::strict: true
+managedmac::sshd::users:
+  - testuser
